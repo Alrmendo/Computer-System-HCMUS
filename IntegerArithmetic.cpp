@@ -28,6 +28,49 @@ void DecToBin(int n, char bin[])
     }
 }
 
+int BinToDec(char bin[]) 
+{
+    int decimal = 0;
+    int base = 1;
+
+    if (bin[0] == '1')
+    {
+        // negative binary
+        for (int i = ARRAY_SIZE - 1; i >= 0; --i) 
+        {
+            if (bin[i] == '1') 
+            {
+                decimal |= base;
+            }
+            else if (bin[i] != '0') 
+            {
+                return -1;
+            }
+            base = base << 1;
+        }
+        decimal = -((1 << ARRAY_SIZE) - decimal);
+    }
+    else 
+    {
+        // positive binary
+        for (int i = ARRAY_SIZE - 1; i >= 0; --i) 
+        {
+            if (bin[i] == '1') 
+            {
+                decimal |= base;
+            }
+            else if (bin[i] != '0') 
+            {
+                return -1;
+            }
+            base = base << 1;
+        }
+    }
+
+    cout << decimal;
+    return decimal;
+}
+
 void addBinary(char bin1[], char bin2[], char result[])
 {
     int carry = 0;
@@ -39,7 +82,7 @@ void addBinary(char bin1[], char bin2[], char result[])
         {
             result[i] = '1';
         }
-        else
+        else 
         {
             result[i] = '0';
         }
@@ -289,35 +332,35 @@ int main ()
     output(resultAdd);
 
     cout << "\nA + B (Decimal): ";
-    cout << a + b;
+    BinToDec(resultAdd);
 
     cout << "\nA - B (Binary): ";
     subtractBinary(arrA, arrB, resultSub);
     output(resultSub);
 
-    cout << "\nA + B (Decimal): ";
-    cout << a - b;
+    cout << "\nA - B (Decimal): ";
+    BinToDec(resultSub);
 
     cout << "\nA * B (Binary): ";
     multipleBinary(arrA, arrB, resultMul);
     output(resultMul);
 
     cout << "\nA * B (Decimal): ";
-    cout << a * b;
+    BinToDec(resultMul);
 
     cout << "\nA / B (Binary): ";
     divideBinary(arrA, arrB, resultDiv);
     output(resultDiv);
 
     cout << "\nA / B (Decimal): ";
-    cout << a / b;
+    BinToDec(resultDiv);
 
     cout << "\nA % B (Binary): ";
     modBinary(arrA, arrB, resultMod);
     output(resultMod);
 
     cout << "\nA % B (Decimal): ";
-    cout << a % b;
+    BinToDec(resultMod);
 
     return 0;
 }
